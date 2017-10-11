@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "969425820814",
+    "firebase_url": "https://cellapp-a8686.firebaseio.com",
+    "project_id": "cellapp-a8686",
+    "storage_bucket": "cellapp-a8686.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:969425820814:android:de252bae7443eb2b",
+        "android_client_info": {
+          "package_name": "com.cellapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "969425820814-939rsav29fmj927ipmnogcvj24d25pbs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAofrrVnzVSb0A4wfBy-43PX_POEy3Nrj4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
