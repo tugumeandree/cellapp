@@ -22,5 +22,14 @@ export default styles = {
   fab:{
     backgroundColor: color1
   },
-  spinnerColor: color1
+  spinnerColor: color1,
+  imgCellFeed:{
+    flex: 1,
+    height: 200,
+    width: null,
+    marginRight: 15,
+    marginLeft: 65,
+    marginBottom: 5,
+    borderRadius: 3
+  }
 }
