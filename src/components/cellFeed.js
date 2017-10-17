@@ -19,7 +19,7 @@ var moment = require('moment');
 export default class CellFeed extends Component{
   renderRow(post){
     return(
-      <ListItem key={post.postKey} avatar>
+      <ListItem key={post.postKey} avatar style={styles.list}>
         <Grid>
           <Row>
             <Left>
@@ -37,6 +37,25 @@ export default class CellFeed extends Component{
             <Image source={{uri: post.postedPic}}
                 style={styles.imgCellFeed}
              />
+          </Row>
+          <Row>
+            <Col></Col>
+            <Col>
+              <Grid>
+                <Row>
+                  <Icon name="ios-text-outline" />
+                  <Text note>{" "+post.nComments}</Text>
+                </Row>
+              </Grid>
+            </Col>
+            <Col>
+              <Grid>
+                <Row>
+                  <Icon name="ios-thumbs-up-outline" />
+                  <Text note>{" "+post.nLikes}</Text>
+                </Row>
+              </Grid>
+            </Col>
           </Row>
         </Grid>
       </ListItem>

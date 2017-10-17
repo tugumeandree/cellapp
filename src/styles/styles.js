@@ -31,5 +31,8 @@ export default styles = {
     marginLeft: 65,
     marginBottom: 5,
     borderRadius: 3
+  },
+  list:{
+    marginBottom: 10
   }
 }

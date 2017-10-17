@@ -7,7 +7,12 @@ import {
   Text,
   Fab,
   Icon,
-  Spinner
+  Spinner,
+  Header,
+  Left,
+  Button,
+  Body,
+  Title
 } from 'native-base';
 
 import MainHeader from './mainheader';
@@ -25,7 +30,8 @@ export default class App extends Component {
     super();
     this.state = {
       isAuthenticated: false,
-      postList: []
+      postList: [],
+      isOnHome: true
     }
   }
 
@@ -61,8 +67,15 @@ export default class App extends Component {
     })
   }
 
+  goPost(){
+    //cause of the fab timeout(100) set timeout
+    setTimeout(()=>{
+      this.setState({isOnHome: false});
+    }, 150);
+  }
+
   render() {
-    if (!this.state.isAuthenticated){
+    if (!this.state.isAuthenticated){ //if not authenticated, display a spinner
       return (
         <Container>
           <MainHeader />
@@ -96,6 +109,26 @@ export default class App extends Component {
         </Container>
       )
     }
+
+    //if authenticated and the post button is pressed go the posting page
+    if (this.state.isAuthenticated && !this.state.isOnHome){
+      return(
+        <Container>
+          <Header style={styles.header}
+            androidStatusBarColor="#A629F6">
+            <Left>
+              <Button transparent onPress={()=> this.setState({isOnHome: true})}>
+                <Icon name="arrow-back" />
+              </Button>
+            </Left>
+            <Body>
+              <Title>cellapp</Title>
+            </Body>
+          </Header>
+        </Container>
+      )
+    }
+
     return (
       <Container>
         <MainHeader />
@@ -111,7 +144,8 @@ export default class App extends Component {
 
               <Fab
                   position="bottomRight"
-                  style={styles.fab}>
+                  style={styles.fab}
+                  onPress={this.goPost.bind(this)}>
                 <Icon name="ios-create" />
               </Fab>
           </Tab>
