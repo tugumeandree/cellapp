@@ -1,4 +1,5 @@
 const color1 = '#A629F6';
+const color2 = "#1d1d1d";
 
 export default styles = {
   header:{
@@ -34,5 +35,23 @@ export default styles = {
   },
   list:{
     marginBottom: 10
+  },
+  input:{
+    marginTop: 10,
+    marginRight: 5,
+    marginLeft: 5,
+    borderBottomWidth: 0
+  },
+  footer:{
+    backgroundColor: "#FFF"
+  },
+  btnTxt:{
+    color: color2
+  },
+  icn:{
+    color: color2
+  },
+  headerPost:{
+    backgroundColor: "#FFF"
   }
 }

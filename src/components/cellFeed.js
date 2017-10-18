@@ -18,6 +18,45 @@ var moment = require('moment');
 
 export default class CellFeed extends Component{
   renderRow(post){
+    if (post.postedPic === ''){
+      return (
+        <ListItem key={post.postKey} avatar style={styles.list}>
+          <Grid>
+            <Row>
+              <Left>
+                <Thumbnail source={{uri: post.profilePic}} />
+              </Left>
+              <Body>
+                <Text>{post.postBy}</Text>
+                <Text note>{post.postedWords}</Text>
+              </Body>
+              <Right>
+                <Text note>{moment(post.time, "LLLL").fromNow()}</Text>
+              </Right>
+            </Row>
+            <Row>
+              <Col></Col>
+              <Col>
+                <Grid>
+                  <Row>
+                    <Icon name="ios-text-outline" />
+                    <Text note>{" "+post.nComments}</Text>
+                  </Row>
+                </Grid>
+              </Col>
+              <Col>
+                <Grid>
+                  <Row>
+                    <Icon name="ios-thumbs-up-outline" />
+                    <Text note>{" "+post.nLikes}</Text>
+                  </Row>
+                </Grid>
+              </Col>
+            </Row>
+          </Grid>
+        </ListItem>
+      )
+    }
     return(
       <ListItem key={post.postKey} avatar style={styles.list}>
         <Grid>

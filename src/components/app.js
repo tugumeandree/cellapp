@@ -12,8 +12,18 @@ import {
   Left,
   Button,
   Body,
-  Title
+  Title,
+  Content,
+  Input,
+  Item,
+  Footer,
+  Col,
+  Row,
+  Grid,
+  Right
 } from 'native-base';
+
+import {Alert} from 'react-native'
 
 import MainHeader from './mainheader';
 import HeaderTab from './headerTab';
@@ -25,13 +35,16 @@ import firebase from 'react-native-firebase';
 
 var db = firebase.database();
 
+var moment = require('moment');
+
 export default class App extends Component {
   constructor(){
     super();
     this.state = {
       isAuthenticated: false,
       postList: [],
-      isOnHome: true
+      isOnHome: true,
+      postTxt: ''
     }
   }
 
@@ -46,9 +59,9 @@ export default class App extends Component {
     console.log("will mount");
     //deal with cellfeed
     let cellfeedRef = db.ref("cellfeed");
-    let posts = [];
 
     cellfeedRef.on("value", (data)=>{
+      let posts = [];
       console.log(data.val())
       data.forEach((post)=>{
         console.log(post.val())
@@ -63,7 +76,27 @@ export default class App extends Component {
           postKey: post.Key
         });
       })
+      posts = posts.reverse();
       this.setState({postList: posts})
+    })
+  }
+
+  share(){
+    //have to add toast
+    console.log("postTxt:",this.state.postTxt);
+    Alert.alert("Cool");
+    this.setState({isOnHome: true});
+    //push data to the database
+    db.ref('/cellfeed').push({
+      postedWords: this.state.postTxt,
+      postBy: "Marc Marco",
+      postedPic: "",
+      nLikes: "0",
+      nComments: "0",
+      profilePic: "https://pbs.twimg.com/profile_images/378800000799284515/29a425d0cacdfe1c01d2be096854a5a6_400x400.jpeg",
+      time: moment().format('LLLL'),
+    }).then(()=>{
+      console.log("pushed on db");
     })
   }
 
@@ -125,6 +158,35 @@ export default class App extends Component {
               <Title>cellapp</Title>
             </Body>
           </Header>
+          <Content>
+            <Item style={styles.input}>
+              <Input placeholder="Share what's on your heart"
+                multiline={true}
+                blurOnSubmit={false}
+                numberOfLines={6}
+                onChangeText={(postTxt)=>this.setState({postTxt})}
+              />
+            </Item>
+          </Content>
+          <Footer style={styles.footer}>
+            <Body>
+              <Button transparent>
+                <Icon name="ios-image-outline" style={styles.icn} />
+              </Button>
+              <Button transparent>
+                <Icon name="ios-document-outline" style={styles.icn} />
+              </Button>
+              <Button transparent>
+                <Icon name="ios-link" style={styles.icn} />
+              </Button>
+            </Body>
+            <Right>
+              <Button transparent
+                onPress={this.share.bind(this)}>
+                <Text style={styles.btnTxt}>Share</Text>
+              </Button>
+            </Right>
+          </Footer>
         </Container>
       )
     }
