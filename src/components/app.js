@@ -1,26 +1,9 @@
 import React, { Component } from 'react';
 
 import {
-  Container,
-  Tabs,
-  Tab,
-  Text,
-  Fab,
-  Icon,
-  Spinner,
-  Header,
-  Left,
-  Button,
-  Body,
-  Title,
-  Content,
-  Input,
-  Item,
-  Footer,
-  Col,
-  Row,
-  Grid,
-  Right
+  Container, Tabs, Tab, Text, Fab, Icon, Spinner, Header,
+  Left, Button, Body, Title, Content, Input, Item,
+  Footer, Col, Row, Grid, Right
 } from 'native-base';
 
 import {Alert} from 'react-native'
@@ -62,20 +45,43 @@ export default class App extends Component {
 
     cellfeedRef.on("value", (data)=>{
       let posts = [];
-      console.log(data.val())
+      //console.log(data.val())
       data.forEach((post)=>{
-        console.log(post.val())
-        posts.push({
-          postedWords: post.val().postedWords,
-          postedPic: post.val().postedPic,
-          profilePic: post.val().profilePic,
-          nComments: post.val().nComments,
-          nLikes: post.val().nLikes,
-          time: post.val().time,
-          postBy: post.val().postBy,
-          postKey: post.Key
-        });
+        //console.log(post.val())
+        if (post.val().likedBy === undefined){
+          //console.log("post key:", post.key)
+          posts.push({
+            postedWords: post.val().postedWords,
+            postedPic: post.val().postedPic,
+            profilePic: post.val().profilePic,
+            nComments: post.val().nComments,
+            nLikes: post.val().nLikes,
+            time: post.val().time,
+            postBy: post.val().postBy,
+            postKey: post.key
+          });
+        }
+
+        else{
+          let likedBy = [] //names of people who liked the post
+          for (let i in post.val().likedBy){
+            likedBy.push(post.val().likedBy[i]);
+          }
+          //console.log("post key:", post.key)
+          posts.push({
+            postedWords: post.val().postedWords,
+            postedPic: post.val().postedPic,
+            profilePic: post.val().profilePic,
+            nComments: post.val().nComments,
+            nLikes: post.val().nLikes,
+            time: post.val().time,
+            postBy: post.val().postBy,
+            postKey: post.key,
+            likedBy: likedBy
+          });
+        }
       })
+
       posts = posts.reverse();
       this.setState({postList: posts})
     })
@@ -202,7 +208,7 @@ export default class App extends Component {
               activeTextStyle={styles.activeTextStyle}>
               {/*<Text>Feed for happenings in the cell</Text>*/}
 
-              <CellFeed postList={this.state.postList} />
+              <CellFeed db={db} postList={this.state.postList} />
 
               <Fab
                   position="bottomRight"

@@ -53,5 +53,8 @@ export default styles = {
   },
   headerPost:{
     backgroundColor: "#FFF"
+  },
+  btnClick:{
+    color: color2
   }
 }

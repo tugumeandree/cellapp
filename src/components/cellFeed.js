@@ -10,14 +10,37 @@ import {
   Right,
   Grid,
   Row,
-  Col
+  Col,
+  Button
 } from 'native-base';
 
 import {Image} from 'react-native'
+import LikeBtn from './likebtn'
+
 var moment = require('moment');
+var username = "Marc Marco";
 
 export default class CellFeed extends Component{
+  like(key, likedBy, likes){
+    //console.log("post key:", key);
+    likes = Number(likes);
+
+    let hasLiked = false
+    for (let i in likedBy)
+    {
+      if (likedBy[i]===username){
+        hasLiked = true;
+      }
+    }
+    if (!hasLiked){
+      likes +=1;
+      this.props.db.ref("cellfeed/"+key+"/likedBy").push(username);
+      this.props.db.ref("cellfeed/"+key+"/nLikes").set(likes.toString());
+    }
+  }
+
   renderRow(post){
+
     if (post.postedPic === ''){
       return (
         <ListItem key={post.postKey} avatar style={styles.list}>
@@ -39,7 +62,9 @@ export default class CellFeed extends Component{
               <Col>
                 <Grid>
                   <Row>
-                    <Icon name="ios-text-outline" />
+                    <Button transparent>
+                      <Icon name="ios-text-outline" />
+                    </Button>
                     <Text note>{" "+post.nComments}</Text>
                   </Row>
                 </Grid>
@@ -47,7 +72,9 @@ export default class CellFeed extends Component{
               <Col>
                 <Grid>
                   <Row>
-                    <Icon name="ios-thumbs-up-outline" />
+                    <LikeBtn likedBy={post.likedBy}
+                        onPress={this.like.bind(this, post.postKey, post.likedBy, post.nLikes)}
+                    />
                     <Text note>{" "+post.nLikes}</Text>
                   </Row>
                 </Grid>
@@ -82,7 +109,9 @@ export default class CellFeed extends Component{
             <Col>
               <Grid>
                 <Row>
-                  <Icon name="ios-text-outline" />
+                  <Button transparent>
+                    <Icon name="ios-text-outline" />
+                  </Button>
                   <Text note>{" "+post.nComments}</Text>
                 </Row>
               </Grid>
@@ -90,7 +119,8 @@ export default class CellFeed extends Component{
             <Col>
               <Grid>
                 <Row>
-                  <Icon name="ios-thumbs-up-outline" />
+                  <LikeBtn likedBy={post.likedBy}
+                    onPress={this.like.bind(this, post.postKey, post.likedBy, post.nLikes)} />
                   <Text note>{" "+post.nLikes}</Text>
                 </Row>
               </Grid>
