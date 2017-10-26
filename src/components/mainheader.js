@@ -15,13 +15,9 @@ export default class MainHeader extends Component{
     return(
       <Header style={styles.header} hasTabs
               androidStatusBarColor="#A629F6">
-        <Left>
-          <Button transparent>
-            <Icon name="menu" />
-          </Button>
-        </Left>
+        {this.props.children}
         <Body>
-          <Title>cellapp</Title>
+          <Title>{this.props.title}</Title>
         </Body>
       </Header>
     )

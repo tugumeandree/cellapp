@@ -1,20 +1,10 @@
 import React, {Component} from 'react'
 import {
-  Icon,
-  List,
-  ListItem,
-  Text,
-  Thumbnail,
-  Left,
-  Body,
-  Right,
-  Grid,
-  Row,
-  Col,
-  Button
+  Icon, List, ListItem, Text, Thumbnail,
+  Left, Body, Right, Grid, Row, Col, Button
 } from 'native-base';
 
-import {Image} from 'react-native'
+import {Image, TouchableOpacity} from 'react-native'
 import LikeBtn from './likebtn'
 
 var moment = require('moment');
@@ -40,23 +30,30 @@ export default class CellFeed extends Component{
   }
 
   renderRow(post){
+    const {navigate} = this.props.navigation;
+
+    //console.log(post.comments)
 
     if (post.postedPic === ''){
       return (
         <ListItem key={post.postKey} avatar style={styles.list}>
           <Grid>
-            <Row>
-              <Left>
-                <Thumbnail source={{uri: post.profilePic}} />
-              </Left>
-              <Body>
-                <Text>{post.postBy}</Text>
-                <Text note>{post.postedWords}</Text>
-              </Body>
-              <Right>
-                <Text note>{moment(post.time, "LLLL").fromNow()}</Text>
-              </Right>
-            </Row>
+            <TouchableOpacity onPress={()=>navigate('Comment', {
+              comments: post.comments
+            })}>
+              <Row>
+                  <Left>
+                    <Thumbnail source={{uri: post.profilePic}} />
+                  </Left>
+                  <Body>
+                    <Text>{post.postBy}</Text>
+                    <Text note>{post.postedWords}</Text>
+                  </Body>
+                  <Right>
+                    <Text note>{moment(post.time, "LLLL").fromNow()}</Text>
+                  </Right>
+              </Row>
+            </TouchableOpacity>
             <Row>
               <Col></Col>
               <Col>
@@ -87,23 +84,28 @@ export default class CellFeed extends Component{
     return(
       <ListItem key={post.postKey} avatar style={styles.list}>
         <Grid>
-          <Row>
-            <Left>
-              <Thumbnail source={{uri: post.profilePic}} />
-            </Left>
-            <Body>
-              <Text>{post.postBy}</Text>
-              <Text note>{post.postedWords}</Text>
-            </Body>
-            <Right>
-              <Text note>{moment(post.time, "LLLL").fromNow()}</Text>
-            </Right>
-          </Row>
-          <Row>
-            <Image source={{uri: post.postedPic}}
-                style={styles.imgCellFeed}
-             />
-          </Row>
+          <TouchableOpacity onPress={()=>navigate('Comment', {
+            comments: post.comments
+            })}>
+            <Row>
+              <Left>
+                <Thumbnail source={{uri: post.profilePic}} />
+              </Left>
+              <Body>
+                <Text>{post.postBy}</Text>
+                <Text note>{post.postedWords}</Text>
+              </Body>
+              <Right>
+                <Text note>{moment(post.time, "LLLL").fromNow()}</Text>
+              </Right>
+            </Row>
+
+            <Row>
+              <Image source={{uri: post.postedPic}}
+                  style={styles.imgCellFeed}
+                />
+            </Row>
+          </TouchableOpacity>
           <Row>
             <Col></Col>
             <Col>
@@ -132,6 +134,10 @@ export default class CellFeed extends Component{
   }
 
   render(){
+    //for (let in )
+    //console.log(this.props.navigation)
+
+
     /*let a = moment().format('LLLL');
     console.log("time:>>>>",a);
     console.log("===>>>>>>>>>>>>>>>>..hrs:", moment(a, 'LLLL').fromNow());*/

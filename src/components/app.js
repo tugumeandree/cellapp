@@ -50,6 +50,18 @@ export default class App extends Component {
         //console.log(post.val())
         if (post.val().likedBy === undefined){
           //console.log("post key:", post.key)
+          let comments = [];//comment and name of commentor
+
+          if (post.val().comments !== undefined){
+            for (let i in post.val().comments){
+              //console.log(i);
+              comments.push({
+                comment: post.val().comments[i].comment,
+                commentBy: post.val().comments[i].commentBy
+              });
+            }
+          }
+
           posts.push({
             postedWords: post.val().postedWords,
             postedPic: post.val().postedPic,
@@ -58,11 +70,24 @@ export default class App extends Component {
             nLikes: post.val().nLikes,
             time: post.val().time,
             postBy: post.val().postBy,
-            postKey: post.key
+            postKey: post.key,
+            comments: comments
           });
         }
 
         else{
+          let comments = [];//comment and name of commentor
+
+          if (post.val().comments !== undefined){
+            for (let i in post.val().comments){
+              //console.log(post.val().comments[i].comment);
+              comments.push({
+                comment: post.val().comments[i].comment,
+                commentBy: post.val().comments[i].commentBy
+              });
+            }
+          }
+
           let likedBy = [] //names of people who liked the post
           for (let i in post.val().likedBy){
             likedBy.push(post.val().likedBy[i]);
@@ -77,7 +102,8 @@ export default class App extends Component {
             time: post.val().time,
             postBy: post.val().postBy,
             postKey: post.key,
-            likedBy: likedBy
+            likedBy: likedBy,
+            comments: comments
           });
         }
       })
@@ -117,7 +143,13 @@ export default class App extends Component {
     if (!this.state.isAuthenticated){ //if not authenticated, display a spinner
       return (
         <Container>
-          <MainHeader />
+          <MainHeader title="cellapp">
+            <Left>
+              <Button transparent>
+                <Icon name="menu" />
+              </Button>
+            </Left>
+          </MainHeader>
           <Tabs>
             <Tab heading="cell"
                 tabStyle={styles.tabStyle}
@@ -153,17 +185,13 @@ export default class App extends Component {
     if (this.state.isAuthenticated && !this.state.isOnHome){
       return(
         <Container>
-          <Header style={styles.header}
-            androidStatusBarColor="#A629F6">
+          <MainHeader title="Share">
             <Left>
               <Button transparent onPress={()=> this.setState({isOnHome: true})}>
                 <Icon name="arrow-back" />
               </Button>
             </Left>
-            <Body>
-              <Title>cellapp</Title>
-            </Body>
-          </Header>
+          </MainHeader>
           <Content>
             <Item style={styles.input}>
               <Input placeholder="Share what's on your heart"
@@ -199,7 +227,13 @@ export default class App extends Component {
 
     return (
       <Container>
-        <MainHeader />
+        <MainHeader title="cellapp">
+          <Left>
+            <Button transparent>
+              <Icon name="menu" />
+            </Button>
+          </Left>
+        </MainHeader>
         <Tabs>
           <Tab heading="cell"
               tabStyle={styles.tabStyle}
@@ -208,7 +242,9 @@ export default class App extends Component {
               activeTextStyle={styles.activeTextStyle}>
               {/*<Text>Feed for happenings in the cell</Text>*/}
 
-              <CellFeed db={db} postList={this.state.postList} />
+              <CellFeed db={db}
+                postList={this.state.postList}
+                navigation={this.props.navigation} />
 
               <Fab
                   position="bottomRight"
