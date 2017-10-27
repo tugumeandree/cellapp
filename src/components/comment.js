@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
-import {Container, Left, Button, Icon} from 'native-base';
+import {
+  Container, Left, Button, Icon,
+  Content, 
+} from 'native-base';
 
 import MainHeader from './mainheader';
 
@@ -25,7 +28,7 @@ export default class Comment extends Component{
           </Left>
         </MainHeader>
         <Content>
-          
+
         </Content>
       </Container>
     )
