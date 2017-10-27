@@ -39,7 +39,7 @@ export default class CellFeed extends Component{
         <ListItem key={post.postKey} avatar style={styles.list}>
           <Grid>
             <TouchableOpacity onPress={()=>navigate('Comment', {
-              comments: post.comments
+              post: post,
             })}>
               <Row>
                   <Left>
@@ -85,7 +85,7 @@ export default class CellFeed extends Component{
       <ListItem key={post.postKey} avatar style={styles.list}>
         <Grid>
           <TouchableOpacity onPress={()=>navigate('Comment', {
-            comments: post.comments
+            post: post,
             })}>
             <Row>
               <Left>

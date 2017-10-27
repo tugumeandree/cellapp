@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import {
   Container, Tabs, Tab, Text, Fab, Icon, Spinner, Header,
-  Left, Button, Body, Title, Content, Input, Item,
+  Left, Button, Body, Title, Content, Item,
   Footer, Col, Row, Grid, Right
 } from 'native-base';
 
@@ -10,7 +10,8 @@ import {Alert} from 'react-native'
 
 import MainHeader from './mainheader';
 import HeaderTab from './headerTab';
-import CellFeed from './cellFeed'
+import CellFeed from './cellFeed';
+import TextInput from './textinput';
 
 import styles from '../styles/styles';
 
@@ -185,7 +186,7 @@ export default class App extends Component {
     if (this.state.isAuthenticated && !this.state.isOnHome){
       return(
         <Container>
-          <MainHeader title="Share">
+          <MainHeader title="cellapp">
             <Left>
               <Button transparent onPress={()=> this.setState({isOnHome: true})}>
                 <Icon name="arrow-back" />
@@ -194,10 +195,7 @@ export default class App extends Component {
           </MainHeader>
           <Content>
             <Item style={styles.input}>
-              <Input placeholder="Share what's on your heart"
-                multiline={true}
-                blurOnSubmit={false}
-                numberOfLines={6}
+              <TextInput placeholder="Share what's on your heart"
                 onChangeText={(postTxt)=>this.setState({postTxt})}
               />
             </Item>
