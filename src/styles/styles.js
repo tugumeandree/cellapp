@@ -56,5 +56,11 @@ export default styles = {
   },
   btnClick:{
     color: color2
+  },
+  commentImg:{
+    flex: 1,
+    height: 200,
+    width: null,
+    borderRadius: 5
   }
 }

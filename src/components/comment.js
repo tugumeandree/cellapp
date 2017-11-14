@@ -5,7 +5,7 @@ import {
   Thumbnail, Card, CardItem,
 } from 'native-base';
 
-import {Image} from 'react-native';
+import {Image,} from 'react-native';
 
 import MainHeader from './mainheader';
 import styles from '../styles/styles';
@@ -21,6 +21,11 @@ export default class Comment extends Component{
 
   static navigationOptions = {
     header: null
+  }
+
+  comment(){
+    const {params} = this.props.navigation.state;
+    console.log("params:",params.postKey);
   }
 
   render(){
@@ -62,7 +67,7 @@ export default class Comment extends Component{
               </Item>
             </Body>
             <Right>
-              <Button transparent>
+              <Button transparent onPress={this.comment.bind(this)}>
                 <Text>Send</Text>
               </Button>
             </Right>
@@ -93,13 +98,14 @@ export default class Comment extends Component{
               </Left>
             </CardItem>
             <CardItem>
-              <Body>
-                <Image source={{uri: params.post.postedPic}}
-                    style={{height: 200, width: 200, flex: 1}}
-                  />
-              </Body>
+              <Image source={{uri: params.post.postedPic}}
+                  style={styles.commentImg}
+                />
             </CardItem>
           </Card>
+
+          {/*list of the comments*/}
+
         </Content>
         <Footer style={styles.footer}>
           <Body>
@@ -110,7 +116,7 @@ export default class Comment extends Component{
             </Item>
           </Body>
           <Right>
-            <Button transparent>
+            <Button transparent onPress={this.comment.bind(this)}>
               <Text>Send</Text>
             </Button>
           </Right>
