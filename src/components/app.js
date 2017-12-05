@@ -40,7 +40,7 @@ export default class App extends Component {
   }
 
   componentWillMount(){
-    console.log("will mount");
+    //console.log("will mount");
     //deal with cellfeed
     let cellfeedRef = db.ref("cellfeed");
 
@@ -58,7 +58,8 @@ export default class App extends Component {
               //console.log(i);
               comments.push({
                 comment: post.val().comments[i].comment,
-                commentBy: post.val().comments[i].commentBy
+                commentBy: post.val().comments[i].commentBy,
+                commentKey: i
               });
             }
           }
@@ -84,7 +85,8 @@ export default class App extends Component {
               //console.log(post.val().comments[i].comment);
               comments.push({
                 comment: post.val().comments[i].comment,
-                commentBy: post.val().comments[i].commentBy
+                commentBy: post.val().comments[i].commentBy,
+                commentKey: i
               });
             }
           }

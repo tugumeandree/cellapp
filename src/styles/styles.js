@@ -62,5 +62,8 @@ export default styles = {
     height: 200,
     width: null,
     borderRadius: 5
+  },
+  commentList:{
+    marginLeft: 3
   }
 }

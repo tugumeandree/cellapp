@@ -5,7 +5,7 @@ import {
   Thumbnail, Card, CardItem, List, ListItem,
 } from 'native-base';
 
-import {Image,} from 'react-native';
+import {Image, View} from 'react-native';
 
 import MainHeader from './mainheader';
 import styles from '../styles/styles';
@@ -17,10 +17,10 @@ var db = firebase.database();
 
 export default class Comment extends Component{
   constructor(props){
-    super(props)
+    super(props);
     this.state = {
+      comments: [],
       comment: '',
-      comments: ''
     }
   }
 
@@ -34,23 +34,48 @@ export default class Comment extends Component{
     let postKey = params.post.postKey;//get the postKey
 
     //get the comments
+    //var comments;
     db.ref("cellfeed/"+postKey+"/comments")
       .on("value", (snap)=>{
-
+        //console.log(snap.val());
         let comments = [];
-        for(let i in snap.val()){
+        /*for(let i in snap.val()){
           comments.push({
             comment: snap.val()[i].comment,
             commentBy: snap.val()[i].commentBy,
             key: i
           });
-        }
+        }*/
+        //let data = snap;
+        snap.forEach((comment)=>{
+          //console.log(comment.key);
+          comments.push({
+            comment: comment.val().comment,
+            commentBy: comment.val().commentBy,
+            key: comment.key
+          })
+        })
+
         this.setState({comments});
+        //console.log("comments in:",this.state.comments);
       })
+      //console.log("comments out:",this.state.comments);
   }
 
   renderRow(comment){
-    console.log("key:", comment)
+    //console.log("comment: ", comment)
+
+    return(
+      <ListItem key={comment.key} avatar style={styles.commentList}>
+        <Left>
+          <Thumbnail source={{uri: "https://www.theepochtimes.com/assets/uploads/2015/02/03/Uber_CEO-674x420.jpg"}} />
+        </Left>
+        <Body>
+          <Text note>{comment.commentBy}</Text>
+          <Text>{comment.comment}</Text>
+        </Body>
+      </ListItem>
+    )
   }
 
   comment(){
