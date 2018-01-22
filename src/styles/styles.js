@@ -64,6 +64,7 @@ export default styles = {
     borderRadius: 5
   },
   commentList:{
-    marginLeft: 3
+    marginLeft: 3,
+    backgroundColor: "#FFF"
   }
 }

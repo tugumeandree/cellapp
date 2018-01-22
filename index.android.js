@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StackNavigator} from 'react-navigation';
-
+import Screens from './src/splash/screens';
 import Comment from './src/components/comment';
 
 import {
@@ -22,6 +22,7 @@ class Home extends Component{
 }
 
 const cellapp = StackNavigator({
+  Splash:{screen: Screens},
   Home: {screen: Home},
   Comment: {screen: Comment}
 });

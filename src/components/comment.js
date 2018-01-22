@@ -117,7 +117,7 @@ export default class Comment extends Component{
             <Left>
               <Button transparent
                 onPress={()=>goBack()}>
-                <Icon name="arrow-back" />
+                <Icon name="arrow-back" style={{color: "#FFF"}} />
               </Button>
             </Left>
           </MainHeader>
@@ -164,7 +164,7 @@ export default class Comment extends Component{
           <Left>
             <Button transparent
               onPress={()=>goBack()}>
-              <Icon name="arrow-back" />
+              <Icon name="arrow-back" style={{color: "#FFF"}} />
             </Button>
           </Left>
         </MainHeader>

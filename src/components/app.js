@@ -149,7 +149,7 @@ export default class App extends Component {
           <MainHeader title="cellapp">
             <Left>
               <Button transparent>
-                <Icon name="menu" />
+                <Icon name="menu" style={{color: "#FFF"}} />
               </Button>
             </Left>
           </MainHeader>
@@ -191,7 +191,7 @@ export default class App extends Component {
           <MainHeader title="cellapp">
             <Left>
               <Button transparent onPress={()=> this.setState({isOnHome: true})}>
-                <Icon name="arrow-back" />
+                <Icon name="arrow-back" style={{color: "#FFF"}} />
               </Button>
             </Left>
           </MainHeader>
@@ -230,7 +230,7 @@ export default class App extends Component {
         <MainHeader title="cellapp">
           <Left>
             <Button transparent>
-              <Icon name="menu" />
+              <Icon name="menu" style={{color: "#FFF"}} />
             </Button>
           </Left>
         </MainHeader>
